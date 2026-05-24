@@ -1,11 +1,15 @@
 
-<template>
-  <div>
-    <div v-if="!isLoggedIn">
+<template class="background">
+  <div class="background">
+    <div class="logo"> 
+      <img @mouseup.left="onHomeScreen" class="face-icon" src="/face.png" alt="Face" />
+      SCRABBL
+    </div>
+    <div v-if="!isLoggedIn" class="background">
       <LoginScreen :onLogin="handleLogin" />
     </div>
 
-    <div v-else>
+    <div v-else class="background">
       <div class="gamearea">
         <LeaderBoard :players="players" />
         <DrawBoard />
@@ -36,7 +40,11 @@ export default {
       if (userData.mode === "private") {
         this.isLoggedIn = true
       }
-    }
+    },
+
+    onHomeScreen() {
+      this.isLoggedIn = false
+    },
   },
 
   data() {
@@ -63,11 +71,30 @@ export default {
 </script>
 
 <style>
+
+.logo {
+  font-size: 22px;
+  color: #fff;
+  background-color: #47aa65;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.background {
+  background-color: #edff9d;
+  height: 100%;
+  width: 100%;
+}
+
+.face-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain; /* keeps aspect ratio without distortion */
+}
+
 .gamearea {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
   display: flex;
   justify-content: center;
   align-items: center;
